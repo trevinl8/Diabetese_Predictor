@@ -37,7 +37,7 @@ def on_predict():
 
     pred = model.predict(df)
     label = "has Diabetes" if pred[0] == 1 else "doesn't have Diabetes"
-    showinfo(title="Prediction Results", message="This patient: {}".format(label))
+    showinfo(title="Prediction Results", message="This patient {}".format(label))
 
 frame = tk.Frame(root)
 frame.place(relheight=0.8, relwidth=0.8, relx=0.1, rely=0.1)
