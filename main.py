@@ -22,6 +22,23 @@ BMI = tk.StringVar()
 DPF = tk.StringVar()
 Age = tk.StringVar()
 
+model = pickle.load(open('DPRF_Model.pkl', 'rb'))
+
+def on_predict():
+    df = pd.DataFrame(columns=cols)
+    df['Pregnancies'] = [float(Pregnancies.get())]
+    df['Glucose'] = [float(Glucose.get())]
+    df['BloodPressure'] = [float(BloodPressure.get())]
+    df['SkinThickness'] = [float(SkinThickness.get())]
+    df['Insulin'] = [float(Insulin.get())]
+    df['BMI'] = [float(BMI.get())]
+    df['DPF'] = [float(DPF.get())]
+    df['Age'] = [float(Age.get())]
+
+    pred = model.predict(df)
+    label = "has Diabetes" if pred[0] == 1 else "doesn't have Diabetes"
+    showinfo(title="Prediction Results", message="This patient: {}".format(label))
+
 frame = tk.Frame(root)
 frame.place(relheight=0.8, relwidth=0.8, relx=0.1, rely=0.1)
 
@@ -64,7 +81,7 @@ BMI_entry.place(x=330, y=360)
 DPF_entry.place(x=330, y=400)
 Age_entry.place(x=330, y=440)
 
-submit_btn = ttk.Button(root, text="Predict", width=36)
+submit_btn = ttk.Button(root, text="Predict", width=36, command=on_predict)
 submit_btn.place(x=330, y=500)
 
 root.mainloop()
